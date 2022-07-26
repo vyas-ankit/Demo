@@ -36,4 +36,25 @@ for epoch in range(epochs):
         # ...
 
 
-# How to use
+# How to use dataloaders for custom dataset
+
+#first create the dataset, e.g.:
+
+def read_dataset(data_path):
+    samples = []
+    with io.open(data_path, mode="r", encoding="utf-8") as file:
+        for line in file:
+            samples.append(json.loads(line.strip()))
+    return samples
+
+train_samples = read_dataset(args.train_data_l1)
+train_examples = []
+for s, sample in enumerate(tqdm(train_samples))
+    train_examples.append(InputExample(texts=[context, sample["l1_output"][0]], label=0))
+#train_examples has all the training examples in the required format
+
+train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=512)
+bi_encoder.fit(train_objectives=[(train_dataloader, train_loss)], epochs=args.num_epochs, use_amp=True,
+               warmup_steps=args.warmup_steps, optimizer_params={'lr': 5e-05}, checkpoint_path=args.biencoder_save,
+               checkpoint_save_steps=10000)
+
