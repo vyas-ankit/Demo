@@ -57,4 +57,3 @@ train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=512)
 bi_encoder.fit(train_objectives=[(train_dataloader, train_loss)], epochs=args.num_epochs, use_amp=True,
                warmup_steps=args.warmup_steps, optimizer_params={'lr': 5e-05}, checkpoint_path=args.biencoder_save,
                checkpoint_save_steps=10000)
-
